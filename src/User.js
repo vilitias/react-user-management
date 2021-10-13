@@ -4,12 +4,13 @@ import React from "react";
 class User extends React.Component {
     
     render() {
-        const {name, age, gender} = this.props;
+        console.log(this.props)
         return (
             <div className="user">
-                <div>Name: {name}</div>
-                <div>Age: {age}</div>
-                <div>Gender: {gender}</div>
+                <div>Name: {this.props.name}</div>
+                <div>Age: {this.props.age}</div>
+                <div>Gender: {this.props.gender}</div>
+                <button>Delete</button>
             </div>
         )
     }
