@@ -17,13 +17,19 @@ class UserManagement extends React.Component {
     }
 
     addUser = () => {
-        const copyState = Object.assign({},this.state)
-        copyState.users.push({id:copyState.id, name:copyState.inputName, age:copyState.inputAge, gender: copyState.inputGender })
+        const copyState = Object.assign({},this.state);
+        copyState.users.push({id:copyState.id++, name:copyState.inputName, age:copyState.inputAge, gender: copyState.inputGender })
         this.setState(copyState)           
     }
 
-    changeInputNameHandler = (event) => {
+    deleteUser = (index) => {
         const copyState = Object.assign({},this.state);
+        copyState.users.splice(index, 1);
+        this.setState(copyState);  
+    }
+
+    changeInputNameHandler = (event) => {
+        const copyState = Object.assign({},this.state); //?
         copyState.inputName = event.target.value;
         this.setState(copyState);           //?
     }
@@ -44,20 +50,27 @@ class UserManagement extends React.Component {
         console.log('state', this.state)
         return (
             <div>
+
                 <Form 
                 func={this.addUser} 
                 changeInputNameHandler={this.changeInputNameHandler} 
                 changeInputAgeHandler={this.changeInputAgeHandler} 
                 changeInputGenderHandler={this.changeInputGenderHandler}
                 state={this.state}/>
+
                 {this.state.users.map((user,index) => {
                     return(
+
                         <User 
                         key={index}
                         name={user.name}
                         age={user.age}
                         gender={user.gender}
+                        id={user.id}
+                        idx={index}
+                        deleteUser={() => this.deleteUser(index)}
                         />
+
                     )
     })}
             </div>
